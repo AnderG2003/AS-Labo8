@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-web
+  labels:
+    app: front-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-web
+  template:
+    metadata:
+      labels:
+        app: front-web
+    spec:
+      containers:
+      - name: front-web
+        image: a2d3/as-laboratorio-8-web:latest  
+        ports:
+        - containerPort: 5000
+        env:
+        - name: FLASK_DEBUG
+          value: "1"
