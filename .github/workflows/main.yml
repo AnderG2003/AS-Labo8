@@ -12,10 +12,10 @@ jobs:
       security-events: write
 
     steps:
-      - name: Descargar código
+      - name: descargar codigo
         uses: actions/checkout@v4
 
-      - name: Analizar código
+      - name: analizar codigo
         uses: advanced-security/python-lint-code-scanning-action@v1
         with:
           linter: pylint
