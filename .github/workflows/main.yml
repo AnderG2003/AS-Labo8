@@ -32,9 +32,6 @@ jobs:
           credentials_json: ${{ secrets.CLOUD_TOKEN}}
           project_id: ${{ secrets.PROJECT_ID}}
 
-      - name: Login to Kubernetes
-        uses: AS_Labo8/setup-gke-gcloud-auth-plugin@v1
-
       - name: Config kubectl
         uses: google-github-actions/get-gke-credentials@v1
         with: 
