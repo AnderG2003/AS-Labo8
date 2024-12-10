@@ -2,9 +2,8 @@ name: laboratorio8
 
 on:
   push:
-    branches:
-      - '**'          
-      - '!main'    
+    branches-ignore:
+      - main
 
 jobs:
   laboratorio8:
@@ -12,12 +11,11 @@ jobs:
     permissions:
       security-events: write
 
-    steps: 
-      - name: descargar codigo
+    steps:
+      - name: Descargar código
         uses: actions/checkout@v4
 
-      - name: analizar codigo
+      - name: Analizar código
         uses: advanced-security/python-lint-code-scanning-action@v1
         with:
           linter: pylint
-
