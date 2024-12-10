@@ -1,0 +1,52 @@
+name: laboratorio8
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  laboratorio8:
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: descargar codigo
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DECKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./app
+          push: true
+          tags: a2d3/as-laboratorio8-web:latest
+
+      - name: Login to Google Cloud
+        uses: google-github-actions/auth@v1
+        with: 
+          credentials_json: ${{ secrets.CLOUD_TOKEN}}
+          project_id: ${{ secrets.PROJECT_ID}}
+
+      - name: Login to Kubernetes
+        uses: AS_Labo8/setup-gke-gcloud-auth-plugin@v1
+
+      - name: Config kubectl
+        uses: google-github-actions/get-gke-credentials@v1
+        with: 
+          cluster_name: AS_Labo8
+          location: us-central1
+
+      - name: Desplegar objetos Kubernetes
+        run: |
+          kubectl apply -f ./k8s/deployment-web.yaml
+          kubectl apply -f ./k8s/deployment-redis.yaml
+          kubectl apply -f ./k8s/service-redis.yaml
+          kubectl apply -f ./k8s/loadBalancer.yaml
+          kubectl rollout restart deployment front-web
+          kubectl rollout restart deployment redis
+
