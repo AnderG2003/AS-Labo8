@@ -1,4 +1,4 @@
-name: laboratorio8
+name: parte 2
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  laboratorio8:
+  parte2:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
