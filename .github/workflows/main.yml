@@ -14,11 +14,8 @@ jobs:
     steps:
       - name: descargar codigo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GIT_TOKEN }}
 
       - name: analizar codigo
         uses: advanced-security/python-lint-code-scanning-action@v1
         with:
           linter: pylint
-          token: ${{ secrets.GIT_TOKEN }}
