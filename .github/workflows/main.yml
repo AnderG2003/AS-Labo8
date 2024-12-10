@@ -35,7 +35,7 @@ jobs:
       - name: Config kubectl
         uses: google-github-actions/get-gke-credentials@v1
         with: 
-          cluster_name: AS_Labo8
+          cluster_name: as-labo8
           location: us-central1
 
       - name: Desplegar objetos Kubernetes
